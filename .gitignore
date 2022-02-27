@@ -1,0 +1,8 @@
+# folders
+x64/
+.vs/
+RTIAW/x64/
+
+# files
+*.vcxproj.filters
+*.vcxproj.user
