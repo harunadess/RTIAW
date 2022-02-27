@@ -39,9 +39,9 @@ public:
 
 	inline vec3<T> &operator/=(const T t) { return *this *= (1/t); }
 
-	inline double length() const { return std::sqrt(lengthSquared()); }
+	inline T length() const { return std::sqrt(lengthSquared()); }
 
-	inline double lengthSquared() const
+	inline T lengthSquared() const
 	{
 		return (e[0]*e[0]) + (e[1]*e[1]) + (e[2]*e[2]);
 	}
@@ -54,6 +54,13 @@ public:
 	inline static vec3<T> random(T min, T max)
 	{
 		return vec3<T>(randomNumber(min, max), randomNumber(min, max), randomNumber(min, max));
+	}
+
+	inline bool nearZero() const
+	{
+		// return true if the vector is close to zero in all dimensions
+		const auto s = 1e-8;
+		return (std::fabs(e[0]) < s) && (std::fabs(e[1]) < s) && (std::fabs(e[2]) < s);
 	}
 
 	T e[3];
@@ -155,6 +162,12 @@ vec3<T> randomInHemisphere(const vec3<T> &normal)
 	if(dot(inUnitSphere, normal) > 0.0)
 		return inUnitSphere;
 	return -inUnitSphere;
+}
+
+template<typename T>
+inline vec3<T> reflect(const vec3<T> &v, const vec3<T> &n)
+{
+	return v - 2*dot(v,n)*n;
 }
 
 #endif // !VEC3_H

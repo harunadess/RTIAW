@@ -148,6 +148,7 @@
     <ClInclude Include="color.hpp" />
     <ClInclude Include="hittable.hpp" />
     <ClInclude Include="hittableList.hpp" />
+    <ClInclude Include="material.hpp" />
     <ClInclude Include="precision.hpp" />
     <ClInclude Include="ray.hpp" />
     <ClInclude Include="rtWeekend.hpp" />

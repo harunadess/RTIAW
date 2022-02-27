@@ -2,12 +2,14 @@
 #define HITTABLE_H
 
 #include "ray.hpp"
+#include "rtWeekend.hpp"
 
-template <typename T>
+template <typename T, class M>
 struct hitRecord
 {
 	point3<T> p;
 	vec3<T> normal;
+	M mat;
 	T t;
 	bool frontFace;
 

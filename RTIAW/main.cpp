@@ -22,6 +22,7 @@ colorRGB rayColor(const ray3D &r, const C& world, int depth)
 	if(world.hit(r, 0.01, INF, rec))
 	{
 		// "incorrect" diffusion method based on the normal
+		// has darker shadows, more contrast (at least with standard diffuse textures)
 		//point3D target = rec.p + rec.normal + randomUnitVector<prec>();
 		// hemispherical scattering
 		point3D target = rec.p + randomInHemisphere(rec.normal);
@@ -40,6 +41,14 @@ constexpr int maxDepth = 50;
 
 // convenience type
 typedef hittableList<sphere3D, prec> renderList;
+
+
+/*
+* 
+*	As it turns out, template *everything* will (likely) not work
+*	You would still need some kind of "generic" type. Perhaps you can use a
+*	generic type without using shared_ptr. or maybe just use those anyways.
+*/
 
 int main()
 {

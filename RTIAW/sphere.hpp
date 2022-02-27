@@ -3,25 +3,26 @@
 
 #include "hittable.hpp"
 
-template <typename T>
+template <typename T, class M>
 class sphere //: public hittable
 {
 public:
 	sphere() {}
-	sphere(point3<T> cen, T r)
-		:center(cen), radius(r)
+	sphere(point3<T> cen, T r, M m)
+		:center(cen), radius(r), mat(m)
 	{}
 
-	bool hit(const ray<T> &r, T tMin, T tMax, hitRecord<T> &rec) const;
+	bool hit(const ray<T> &r, T tMin, T tMax, hitRecord<T, M> &rec) const;
 
 	point3<T> center;
 	T radius;
+	M mat;
 };
 
 // (A + tb - C)(A + tb - C) = r^2
 // t^2b(b) + 2tb(A - C)+ (A - C)(A - C) - r^2 = 0
-template<typename T>
-bool sphere<T>::hit(const ray<T> &r, T tMin, T tMax, hitRecord<T> &rec) const
+template<typename T, class M>
+bool sphere<T, M>::hit(const ray<T> &r, T tMin, T tMax, hitRecord<T, M> &rec) const
 {
 	vec3<T> oc = r.origin() - center;
 	auto a = r.direction().lengthSquared();
@@ -48,6 +49,7 @@ bool sphere<T>::hit(const ray<T> &r, T tMin, T tMax, hitRecord<T> &rec) const
 	vec3<T> normal = (rec.p - center);
 	vec3<T> outwardNormal = normal/radius;
 	rec.setFaceNormal(r, outwardNormal);
+	rec.mat = mat;
 
 	return true;
 }

@@ -4,7 +4,7 @@
 #include <vector>
 #include "hittable.hpp"
 
-template <class C, typename T>
+template <class C, typename T, class M>
 class hittableList //:public hittable
 {
 public:
@@ -14,13 +14,13 @@ public:
 	void clear() { objects.clear(); }
 	void add(C object) { objects.push_back(object); }
 
-	bool hit(const ray<T> &r, T tMin, T tMax, hitRecord<T> &rec) const;
+	bool hit(const ray<T> &r, T tMin, T tMax, hitRecord<T, M> &rec) const;
 
 	std::vector<C> objects;
 };
 
-template <class C, typename T>
-bool hittableList<C, T>::hit(const ray<T> &r, T tMin, T tMax, hitRecord<T> &rec) const
+template <class C, typename T, class M>
+bool hittableList<C, T, M>::hit(const ray<T> &r, T tMin, T tMax, hitRecord<T, M> &rec) const
 {
 	hitRecord<T> tempRec;
 	bool didHit = false;
